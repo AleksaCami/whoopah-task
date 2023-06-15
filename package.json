@@ -16,6 +16,9 @@
   "dependencies": {
     "@koa/router": "^12.0.0",
     "@types/koa": "^2.13.6",
+    "apollo-server-koa": "^3.12.0",
+    "graphql": "^16.6.0",
+    "graphql-tools": "^9.0.0",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
     "koa-router": "^12.0.0",
@@ -23,6 +26,7 @@
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
+    "type-graphql": "^2.0.0-beta.2",
     "typeorm": "^0.3.16",
     "typeorm-transactional": "^0.4.1",
     "typescript": "^5.1.3"
