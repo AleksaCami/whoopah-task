@@ -1,10 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es2018",
     "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist"
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "jsx": "react",
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": [
+    "./src/**/*",
+    "migrations/**/*.ts"
+  ]
 }

@@ -7,10 +7,11 @@
   "database": "whoopah",
   "synchronize": true,
   "logging": true,
-  "entities": ["src/entities/*.ts"],
-  "migrations": ["src/migrations/*.ts"],
+  "entities": ["src/database/entities/*.js"],
+  "migrations": ["src/database/migrations/*.js"],
   "cli": {
-    "entitiesDir": "src/entities",
-    "migrationsDir": "src/migrations"
+    "entitiesDir": "src/database/entities",
+    "migrationsDir": "src/database/migrations",
+    "dataSource": "src/database/typeorm-cli.datasource.ts"
   }
 }
