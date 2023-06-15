@@ -26,6 +26,16 @@ export const typeDefs = gql`
         slug: String!
         price: Float!
         categoryId: ID!
+        category: Category!
+    }
+    
+    type ProductPage {
+        products: [Product!]!
+        totalCount: Int!
+    }
+
+    enum ProductSortField {
+        CREATION_DATE
     }
 
     input CategoryInput {
@@ -39,7 +49,8 @@ export const typeDefs = gql`
     }
 
     type Mutation {
-        createCategory(category: CategoryInput!): Category!
+        createCategory(category: CategoryInput!): Category
+        createProduct(product: ProductInput!): Product
     }
 
     type Query {
@@ -48,5 +59,11 @@ export const typeDefs = gql`
             pageSize: Int = 10
             sortBy: CategorySortField = TITLE
         ): CategoryPage!
+        getProducts(
+            page: Int = 1
+            pageSize: Int = 10
+            sortBy: ProductSortField = CREATION_DATE
+            categoryId: ID
+        ): ProductPage!
     }
 `;

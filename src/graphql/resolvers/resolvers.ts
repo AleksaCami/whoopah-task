@@ -3,6 +3,7 @@ import dataSource from "../../database/typeorm-cli.datasource";
 
 // Entities
 import {Category} from "../../database/entities/category";
+import {Product} from "../../database/entities/product";
 
 export const resolvers = {
   Query: {
@@ -37,6 +38,38 @@ export const resolvers = {
         totalCount,
       };
     },
+    getProducts: async (parent, { page, pageSize, sortBy, categoryId }, context) => {
+      const productRepository = dataSource.getRepository(Product);
+
+      // Create the base query
+      let query = productRepository.createQueryBuilder('product');
+
+      // Apply category filter if provided
+      if (categoryId) {
+        query = query.where('product.categoryId = :categoryId', { categoryId });
+      }
+
+      // Count total number of products
+      const totalCount = await query.getCount();
+
+      // Apply sorting
+      if (sortBy === 'CREATION_DATE') {
+        query = query.orderBy('product.createdAt', 'DESC');
+      }
+
+      // Apply pagination
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      query = query.skip(startIndex).take(pageSize);
+
+      // Fetch the products
+      const products = await query.getMany();
+
+      return {
+        products,
+        totalCount,
+      };
+    },
   },
   Mutation: {
     createCategory: async (parent, { category }, context) => {
@@ -52,6 +85,29 @@ export const resolvers = {
       await categoryRepository.save(newCategory);
       // and return the created category object
       return newCategory;
+    },
+    createProduct: async (parent, { product }, context) => {
+      const { title, price, categoryId } = product;
+
+      if (!title) {
+        throw new Error('Title is required');
+      }
+
+      if (!price) {
+        throw new Error('Price is required');
+      }
+
+      if (!categoryId) {
+        throw new Error('Category is required');
+      }
+
+      const productRepository = dataSource.getRepository(Product);
+
+      const newProduct = productRepository.create({ title, price, categoryId });
+      await productRepository.save(newProduct);
+
+      // and return the created product object
+      return newProduct;
     },
   },
 };

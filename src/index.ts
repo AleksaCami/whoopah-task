@@ -5,7 +5,7 @@ import { ApolloServer } from 'apollo-server-koa';
 import { makeExecutableSchema } from 'graphql-tools';
 
 // Resolvers
-import * as categoryResolver from './graphql/resolvers/category.resolvers';
+import * as resolvers from './graphql/resolvers/resolvers';
 
 // Type Defs
 import { typeDefs } from "./graphql/schemas/schema";
@@ -19,7 +19,7 @@ app.use(router.routes());
 
 const schema = makeExecutableSchema({
   typeDefs,
-  ...categoryResolver
+  ...resolvers
 });
 
 export const server = new ApolloServer({
@@ -27,8 +27,8 @@ export const server = new ApolloServer({
 });
 
 // Start the server
-app.listen(3000, () => {
-  console.log('Server listening on port 3000');
+app.listen(3001, () => {
+  console.log('Server listening on port 3001');
 });
 
 const startApollo = async () => {
