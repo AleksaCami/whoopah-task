@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "watch": [
+    "src/**/*.ts"
+  ],
+  "ext": "ts",
+  "exec": "ts-node --files ./src/index.ts"
+}

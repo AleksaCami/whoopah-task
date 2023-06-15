@@ -15,8 +15,11 @@ RUN yarn install --frozen-lockfile
 # Copy the entire project to the container
 COPY . .
 
+# Build the TypeScript code
+RUN yarn build
+
 # Expose the port your application listens on
 EXPOSE 3000
 
 # Start the application
-CMD ["yarn", "start"]
+CMD ["node", "dist/index.js"]

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon",
     "build": "tsc -p ./tsconfig.json",
     "typeorm": "typeorm-ts-node-commonjs",
     "db:migrate": "yarn run typeorm migration:run -d src/database/typeorm-cli.datasource.ts",
@@ -13,9 +14,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/router": "^12.0.0",
     "@types/koa": "^2.13.6",
     "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.0",
     "koa-router": "^12.0.0",
+    "nodemon": "^2.0.22",
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^10.9.1",
