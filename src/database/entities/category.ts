@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm';
 
 // Entities
 import { Product } from './product';
@@ -19,6 +28,20 @@ export class Category {
 
   @OneToMany(() => Product, product => product.category)
   products: Product[];
+
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'created_at',
+    select: false,
+  })
+  createdAt?: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp with time zone',
+    name: 'updated_at',
+    select: false,
+  })
+  updatedAt?: Date;
 
   @BeforeInsert()
   @BeforeUpdate()

@@ -22,6 +22,16 @@ export class InitialSetup1625771234567 implements MigrationInterface {
             type: 'varchar',
             isUnique: true,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp with time zone',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp with time zone',
+            default: 'now()',
+          },
         ],
       })
     );
@@ -55,6 +65,16 @@ export class InitialSetup1625771234567 implements MigrationInterface {
           {
             name: 'categoryId',
             type: 'int',
+          },
+          {
+            name: 'created_at',
+            type: 'timestamp with time zone',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp with time zone',
+            default: 'now()',
           },
         ],
         foreignKeys: [
