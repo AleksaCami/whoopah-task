@@ -9,7 +9,7 @@ const dataSource = addTransactionalDataSource(
     username: 'whoopah',
     password: 'whoopah',
     database: 'whoopah',
-    entities: [__dirname + '/entities/*.entity{.ts,.js}'],
+    entities: [__dirname + '/entities/*{.ts,.js}'],
     synchronize: false,
     migrationsRun: false,
     migrations: [__dirname + '/migrations/*{.ts,.js}'],
