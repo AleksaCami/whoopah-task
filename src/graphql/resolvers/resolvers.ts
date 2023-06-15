@@ -1,11 +1,27 @@
 // Data Source
 import dataSource from "../../database/typeorm-cli.datasource";
 
+// Services
+import pubsub from "../../services/graphql-subscriptions.service";
+
 // Entities
 import {Category} from "../../database/entities/category";
 import {Product} from "../../database/entities/product";
 
 export const resolvers = {
+  Subscription: {
+    hello: {
+      // Example using an async generator
+      subscribe: async function* () {
+        for await (const word of ['Hello', 'Bonjour', 'Ciao']) {
+          yield { hello: word };
+        }
+      },
+    },
+    productCreated: {
+      subscribe: () => pubsub.asyncIterator('PRODUCT_CREATED'),
+    },
+  },
   Query: {
     getCategories: async (parent, { page, pageSize, sortBy }, context) => {
       const categoryRepository = dataSource.getRepository(Category);
@@ -105,6 +121,8 @@ export const resolvers = {
 
       const newProduct = productRepository.create({ title, price, categoryId });
       await productRepository.save(newProduct);
+
+      await pubsub.publish('PRODUCT_CREATED', { productCreated: newProduct });
 
       // and return the created product object
       return newProduct;

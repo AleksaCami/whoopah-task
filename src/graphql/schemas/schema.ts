@@ -66,4 +66,9 @@ export const typeDefs = gql`
             categoryId: ID
         ): ProductPage!
     }
+    
+    type Subscription {
+        hello: String!
+        productCreated: Product!
+    }
 `;

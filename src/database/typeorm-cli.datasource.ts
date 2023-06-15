@@ -15,6 +15,4 @@ const dataSource = addTransactionalDataSource(
     migrations: [__dirname + '/migrations/*{.ts,.js}'],
   } as DataSourceOptions),
 );
-
-dataSource.initialize();
 export default dataSource;
