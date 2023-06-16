@@ -3,72 +3,73 @@ import { gql } from 'apollo-server-koa';
 
 // Define your schema
 export const typeDefs = gql`
-    type Category {
-        id: ID!
-        title: String!
-        slug: String!
-        popularity: Int
-    }
+  type Category {
+    id: ID!
+    title: String!
+    slug: String!
+    popularity: Int
+    products: [Product]
+  }
 
-    type CategoryPage {
-        categories: [Category!]!
-        totalCount: Int!
-    }
+  type CategoryPage {
+    categories: [Category!]!
+    totalCount: Int!
+  }
 
-    enum CategorySortField {
-        TITLE
-        POPULARITY
-    }
+  enum CategorySortField {
+    TITLE
+    POPULARITY
+  }
 
-    type Product {
-        id: ID!
-        title: String!
-        slug: String!
-        price: Float!
-        categoryId: ID!
-        category: Category!
-    }
-    
-    type ProductPage {
-        products: [Product!]!
-        totalCount: Int!
-    }
+  type Product {
+    id: ID!
+    title: String!
+    slug: String!
+    price: Float!
+    categoryId: ID!
+    category: Category!
+  }
 
-    enum ProductSortField {
-        CREATION_DATE
-    }
+  type ProductPage {
+    products: [Product!]!
+    totalCount: Int!
+  }
 
-    input CategoryInput {
-        title: String!
-    }
+  enum ProductSortField {
+    CREATION_DATE
+  }
 
-    input ProductInput {
-        title: String!
-        price: Float!
-        categoryId: ID!
-    }
+  input CategoryInput {
+    title: String!
+  }
 
-    type Mutation {
-        createCategory(category: CategoryInput!): Category
-        createProduct(product: ProductInput!): Product
-    }
+  input ProductInput {
+    title: String!
+    price: Float!
+    categoryId: ID!
+  }
 
-    type Query {
-        getCategories(
-            page: Int = 1
-            pageSize: Int = 10
-            sortBy: CategorySortField = TITLE
-        ): CategoryPage!
-        getProducts(
-            page: Int = 1
-            pageSize: Int = 10
-            sortBy: ProductSortField = CREATION_DATE
-            categoryId: ID
-        ): ProductPage!
-    }
-    
-    type Subscription {
-        hello: String!
-        productCreated: Product!
-    }
+  type Mutation {
+    createCategory(category: CategoryInput!): Category
+    createProduct(product: ProductInput!): Product
+  }
+
+  type Query {
+    getCategories(
+      page: Int = 1
+      pageSize: Int = 10
+      sortBy: CategorySortField = TITLE
+    ): CategoryPage!
+    getProducts(
+      page: Int = 1
+      pageSize: Int = 10
+      sortBy: ProductSortField = CREATION_DATE
+      categoryId: ID
+    ): ProductPage!
+  }
+
+  type Subscription {
+    hello: String!
+    productCreated: Product!
+  }
 `;

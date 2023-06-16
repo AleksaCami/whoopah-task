@@ -1,12 +1,12 @@
 // Data Source
-import dataSource from "../../database/typeorm-cli.datasource";
+import dataSource from '../../database/typeorm-cli.datasource';
 
 // Services
-import pubsub from "../../services/graphql-subscriptions.service";
+import pubsub from '../../services/graphql-subscriptions.service';
 
 // Entities
-import {Category} from "../../database/entities/category";
-import {Product} from "../../database/entities/product";
+import { Category } from '../../database/entities/category';
+import { Product } from '../../database/entities/product';
 
 export const resolvers = {
   Subscription: {
@@ -54,7 +54,11 @@ export const resolvers = {
         totalCount,
       };
     },
-    getProducts: async (parent, { page, pageSize, sortBy, categoryId }, context) => {
+    getProducts: async (
+      parent,
+      { page, pageSize, sortBy, categoryId },
+      context,
+    ) => {
       const productRepository = dataSource.getRepository(Product);
 
       // Create the base query
@@ -126,6 +130,22 @@ export const resolvers = {
 
       // and return the created product object
       return newProduct;
+    },
+  },
+  Product: {
+    category: (parent: Product): Promise<Category | null> => {
+      const categoryRepo = dataSource.getRepository(Category);
+
+      return categoryRepo.findOne({
+        where: { id: parent.categoryId },
+      });
+    },
+  },
+  Category: {
+    products: (parent: Category): Promise<Product[] | null> => {
+      const productRepo = dataSource.getRepository(Product);
+
+      return productRepo.find({ where: { categoryId: parent.id } });
     },
   },
 };
