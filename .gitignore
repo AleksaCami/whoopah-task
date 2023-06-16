@@ -30,5 +30,6 @@ lerna-debug.log*
 # IDE - VSCode
 .vscode/*
 
-.env
+# COMMENTED OUT FOR TESTING PURPOUSES
+#.env
 .env.docker

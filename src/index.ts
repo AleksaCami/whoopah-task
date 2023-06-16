@@ -1,6 +1,6 @@
 import Koa from 'koa';
-import bodyParser from "koa-bodyparser";
-import Router from "@koa/router";
+import bodyParser from 'koa-bodyparser';
+import Router from '@koa/router';
 import { ApolloServer } from 'apollo-server-koa';
 import { makeExecutableSchema } from 'graphql-tools';
 import { createServer } from 'http';
@@ -9,13 +9,13 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 
 // Data source
-import dataSource from "./database/typeorm-cli.datasource";
+import dataSource from './database/typeorm-cli.datasource';
 
 // Resolvers
 import * as resolvers from './graphql/resolvers/resolvers';
 
 // Type Defs
-import { typeDefs } from "./graphql/schemas/schema";
+import { typeDefs } from './graphql/schemas/schema';
 
 const app = new Koa();
 const httpServer = createServer(app.callback());
@@ -26,7 +26,7 @@ app.use(router.routes());
 
 const schema = makeExecutableSchema({
   typeDefs,
-  ...resolvers
+  ...resolvers,
 });
 
 // Creating the WebSocket server
@@ -56,8 +56,8 @@ export const server = new ApolloServer({
 });
 
 // Start the server
-httpServer.listen(3001, () => {
-  console.log('Server listening on port 3001');
+httpServer.listen(process.env.APP_PORT ?? 3000, () => {
+  console.log(`Server listening on port ${process.env.APP_PORT ?? 3000}`);
 });
 
 const startApollo = async () => {
@@ -65,6 +65,6 @@ const startApollo = async () => {
   await server.start();
 
   server.applyMiddleware({ app });
-}
+};
 
 startApollo();
